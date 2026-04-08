@@ -6,10 +6,11 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Stage 2: Create a lightweight runtime image
-FROM alpine/java:21-jdk
-WORKDIR /usr/local/tomcat/webapps/
+# Stage 2: Run
+FROM amazoncorretto:21-alpine
+WORKDIR /app
 
-COPY --from=builder /app/target/SpringHeackathonProject-0.0.1-SNAPSHOT.war app.war
+COPY --from=builder /app/target/*.jar app.jar
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.war"] 
+ENTRYPOINT ["java", "-jar", "app.jar"]
