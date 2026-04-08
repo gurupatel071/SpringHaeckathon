@@ -10,6 +10,6 @@ RUN mvn clean package -DskipTests
 FROM alpine/java:21-jdk
 WORKDIR /usr/local/tomcat/webapps/
 
-COPY --from=builder /app/target/CodeVerse-1.war app.war
+COPY --from=builder /app/target/SpringHeackathonProject-0.0.1-SNAPSHOT.war app.war
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.war"] 
